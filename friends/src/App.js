@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
+import { resolve } from 'dns';
  
 class App extends Component {
   constructor() {
@@ -14,15 +15,20 @@ class App extends Component {
   componentDidMount() {
     axios
     .get('http://localhost:5000/friends')
-    .then()
-    .catch()
+    .then(response => {
+      console.log(response.data);
+      this.setState({friends: response.data})
+    })
+    .catch(err => {
+      console.log('Sum ting wong', err)
+    })
   }
 
 
   render() {
     return (
       <div className="App">
- 
+        <h1>Get some friends in here!</h1>
       </div>
     );
   }
