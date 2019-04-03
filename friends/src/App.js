@@ -32,7 +32,7 @@ class App extends Component {
       <div className="App">
         <h1>Get some friends in here!</h1>
         {this.state.friends.map(friend => (
-          <ul>{friend.name}, {friend.age}, {friend.email}</ul>
+          <ul>Name: {friend.name}, Age: {friend.age}, Email: {friend.email}</ul>
         ))
         }
         <Route exact path="/" />
