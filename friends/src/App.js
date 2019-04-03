@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import ReactDOM from "react-dom";
 // import logo from './logo.svg';
 import axios from 'axios';
+import {Route, Link} from 'react-router-dom';
 import './App.css';
-import { resolve } from 'dns';
+// import { resolve } from 'dns';
  
 class App extends Component {
   constructor() {
@@ -16,7 +18,7 @@ class App extends Component {
     axios
     .get('http://localhost:5000/friends')
     .then(response => {
-      console.log(response.data);
+      console.log(response);
       this.setState({friends: response.data})
     })
     .catch(err => {
@@ -29,6 +31,12 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Get some friends in here!</h1>
+        {this.state.friends.map(friend => (
+          <ul>{friend.name}, {friend.age}, {friend.email}</ul>
+        ))
+        }
+        <Route exact path="/" />
+        <Route path ="/friends" />
       </div>
     );
   }
