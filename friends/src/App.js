@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import axios from 'axios';
 import {Route, Link} from 'react-router-dom';
 import FriendForm from './Components/FriendForm'
+import FriendsList from './Components/FriendsList'
 import './App.css';
 // import { resolve } from 'dns';
  
@@ -18,6 +19,14 @@ class App extends Component {
   updateFriends = newFriends => {
     this.setState({ friends: newFriends })
   }
+
+  handleDeleteFriend = (id) => {
+    axios
+    .delete(`http://localhost:5000/friends/${id}`)
+      .then(response => this.setState({ friends: response.data }))
+      .catch(err => { throw new Error(err)});
+  }
+
 
   componentDidMount() {
     axios
@@ -45,7 +54,8 @@ class App extends Component {
         <Route
           path="/friend-form"
           render={props => (
-            <FriendForm {...props} updateFriends={this.updateFriends} />
+            <FriendForm {...props} updateFriends={this.updateFriends} />,
+            <FriendsList friends={this.state.friends} deleteFriend={this.handleDeleteFriend} />
           )}
         /> 
 
