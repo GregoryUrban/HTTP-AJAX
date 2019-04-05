@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 // import logo from './logo.svg';
 import axios from 'axios';
 import {Route, Link} from 'react-router-dom';
+import FriendForm from './Components/FriendForm'
 import './App.css';
 // import { resolve } from 'dns';
  
@@ -14,12 +15,15 @@ class App extends Component {
     }
   }
 
+  updateFriends = newFriends => {
+    this.setState({ friends: newFriends })
+  }
+
   componentDidMount() {
     axios
     .get('http://localhost:5000/friends')
     .then(response => {
-      console.log(response);
-      this.setState({friends: response.data})
+      this.setState({ friends: response.data })
     })
     .catch(err => {
       console.log('Sum ting wong', err)
@@ -37,6 +41,14 @@ class App extends Component {
         }
         <Route exact path="/" />
         <Route path ="/friends" />
+
+        <Route
+          path="/friend-form"
+          render={props => (
+            <FriendForm {...props} updateFriends={this.updateFriends} />
+          )}
+        /> 
+
       </div>
     );
   }
