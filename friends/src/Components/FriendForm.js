@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios"
 
 class FriendForm extends React.Component {
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -29,32 +28,19 @@ class FriendForm extends React.Component {
               .then(response => {
                 this.props.updateFriends(response.data)
               })
-              .catch(err => console.log(err))
+              .catch(response => console.log(response))
             // axios post
             // clear the state
           }
 
-        //   handleDeleteFriend = (id) => {
-        //     axios
-        //     .delete(`http://localhost:5000/friends/${id}`)
-        //       .then(res => this.setState({ friends: res.data }))
-        //       .catch(err => { throw new Error(err)});
-        //   }
+          handleDeleteFriend = (id) => {
+            axios.delete(`http://localhost:5000/friends/${id}`)
+              .then(response => this.setState({ friends: response.data }))
+              .catch(err => { throw new Error(err)});
+          }
         
 
             render() {
-                // const FriendsList = props => (
-                //     <div className="list">
-                //         {props.friends.map(friend => (
-                //             <div key={friend.id}>
-                //                 <p><span>Name:</span> {friend.name}</p>
-                //                 <p><span>Age:</span> {friend.age}</p>
-                //                 <p><span>Email:</span> {friend.email}</p>
-                //                 <span onClick={() => props.deleteFriend(friend.id)}>X</span>
-                //             </div>
-                //         ))}
-                //     </div>
-                // );
                 return(
                     <div>
                     <h2>Add New Friend</h2>

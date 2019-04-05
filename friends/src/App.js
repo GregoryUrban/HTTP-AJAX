@@ -44,10 +44,10 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Get some friends in here!</h1>
-        {this.state.friends.map(friend => (
+        {/* {this.state.friends.map(friend => (
           <ul>Name: {friend.name}, Age: {friend.age}, Email: {friend.email}</ul>
         ))
-        }
+        } */}
         <Route exact path="/" />
         <Route path ="/friends" />
 
