@@ -6,7 +6,6 @@ import {Route, Link} from 'react-router-dom';
 import FriendForm from './Components/FriendForm'
 import FriendsList from './Components/FriendsList'
 import './App.css';
-// import { resolve } from 'dns';
  
 class App extends Component {
   constructor() {
@@ -17,6 +16,7 @@ class App extends Component {
   }
 
   updateFriends = newFriends => {
+    console.log('updating friends?')
     this.setState({ friends: newFriends })
   }
 
@@ -41,21 +41,28 @@ class App extends Component {
 
 
   render() {
+    // const ShowTheLocationWithRouter = withRouter(ShowTheLocation);
     return (
       <div className="App">
-        <h1>Get some friends in here!</h1>
+        <h1>List of Friends!</h1>
         {/* {this.state.friends.map(friend => (
           <ul>Name: {friend.name}, Age: {friend.age}, Email: {friend.email}</ul>
         ))
         } */}
         <Route exact path="/" />
-        <Route path ="/friends" />
+        <Route 
+        path ="/friends"
+        render={props => (
+          <FriendsList friends={this.state.friends} deleteFriend={this.handleDeleteFriend} editFriend={this.updateFriends} />
+        )}
+         />
 
         <Route
           path="/friend-form"
           render={props => (
-            <FriendForm {...props} updateFriends={this.updateFriends} />,
-            <FriendsList friends={this.state.friends} deleteFriend={this.handleDeleteFriend} />
+            <FriendForm {...props} updateFriends={this.updateFriends} />
+            // ,
+            // <FriendsList friends={this.state.friends} deleteFriend={this.handleDeleteFriend} />
           )}
         /> 
 
@@ -63,6 +70,7 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
 

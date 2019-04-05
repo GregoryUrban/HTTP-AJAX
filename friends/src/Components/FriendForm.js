@@ -5,7 +5,7 @@ class FriendForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            friends: {
+            friend: {
                 name: '',
                 age: '',
                 email: ''
@@ -17,16 +17,16 @@ class FriendForm extends React.Component {
             ev.persist()
             let value = ev.target.value
             this.setState(prevState => ({
-              friends: { ...prevState.friends, [ev.target.name]: value }
+              friend: { ...prevState.friend, [ev.target.name]: value }
             }))
           }
         
           handleSubmit = event => {
             event.preventDefault()
             axios
-              .post("http://localhost:5000/friends", this.state.friends)
+              .post("http://localhost:5000/friend", this.state.friend)
               .then(response => {
-                this.props.updateFriends(response.data)
+                this.props.updatefriend(response.data)
               })
               .catch(response => console.log(response))
             // axios post
@@ -34,8 +34,8 @@ class FriendForm extends React.Component {
           }
 
           handleDeleteFriend = (id) => {
-            axios.delete(`http://localhost:5000/friends/${id}`)
-              .then(response => this.setState({ friends: response.data }))
+            axios.delete(`http://localhost:5000/friend/${id}`)
+              .then(response => this.setState({ friend: response.data }))
               .catch(err => { throw new Error(err)});
           }
         
@@ -50,7 +50,7 @@ class FriendForm extends React.Component {
                         name="name"
                         onChange={this.changeHandler}
                         placeholder="name"
-                        value={this.state.friends.name}
+                        value={this.state.friend.name}
                       />
                       <div className="baseline" />
                       <input
@@ -58,7 +58,7 @@ class FriendForm extends React.Component {
                         name="age"
                         onChange={this.changeHandler}
                         placeholder="age"
-                        value={this.state.friends.age}
+                        value={this.state.friend.age}
                       />
                       <div className="baseline" />
                       <input
@@ -66,7 +66,7 @@ class FriendForm extends React.Component {
                         name="email"
                         onChange={this.changeHandler}
                         placeholder="email"
-                        value={this.state.friends.email}
+                        value={this.state.friend.email}
                       />
                       <div className="baseline" />
                       
