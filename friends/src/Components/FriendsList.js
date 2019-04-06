@@ -1,17 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const FriendsList = props => (
+
+    <div className="list-container">
+    <Link to="/friend-form" className="add-button">Add Yo Friend</Link>
     <div className="list">
-        {props.friends.map(friends => (
-            <div key={friends.id}>
-                <p><span>Name:</span> {friends.name}</p>
-                <p><span>Age:</span> {friends.age}</p>
-                <p><span>Email:</span> {friends.email}</p>
-                <span onClick={() => props.deleteFriend(friends.id)}>Delete Friend</span>
-                <span onClick={() => props.editFriend(friends.id)}>Edit Friend</span>
+        {props.friends.map(friend => (
+            <div key={friend.id}>
+                <p><span>Name:</span> {friend.name}</p>
+                <p><span>Age:</span> {friend.age}</p>
+                <p><span>Email:</span> {friend.email}</p>
+                <span onClick={() => props.deleteFriend(friend.id)}>Delete Friend</span>
+                <Link to={`/edit/${friend.id}`}>Edit Friend</Link>
 
             </div>
         ))}
     </div>
+</div>
 );
 export default FriendsList;

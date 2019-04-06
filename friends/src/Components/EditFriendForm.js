@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios"
 
-class FriendForm extends React.Component {
+class EditFriendForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.match.params.id,
             friends: {
                 name: '',
                 age: '',
@@ -21,21 +22,23 @@ class FriendForm extends React.Component {
             }))
           }
         
-          handleSubmit = event => {
-            event.preventDefault()
+          handleSubmitEdit = id => {
+            const {name, age, email} = this.state.friends
+            console.log(name,age,email)
             axios
-              .post("http://localhost:5000/friends", this.state.friends)
-              .then(response => {
-                this.props.handleUpdateFriendsList(response.data)
-              })
-              .catch(response => console.log(response))
+            .put(`http://localhost:5000/friends/${id}`, {name, age, email})
+            .then(response => {
+                console.log('put!',response);
+                this.props.history.push('/');
+            })
+            .catch(err => { throw new Error(err) });
           }
 
             render() {
                 return(
                     <div>
-                    <h2>Add New Friend</h2>
-                    <form onSubmit={this.handleSubmit}>
+                    <h2>Edit Friend</h2>
+                    <form onSubmit={() => this.handleSubmitEdit(this.state.id)}>
                       <input
                         type="text"
                         name="name"
@@ -61,7 +64,7 @@ class FriendForm extends React.Component {
                       />
                       <div className="baseline" />
                       
-                      <button type="submit">Add New Friend</button>
+                      <button>Edit Friend</button>
                     </form>
                     </div>
                 )
@@ -72,4 +75,4 @@ class FriendForm extends React.Component {
 
 
 
-export default FriendForm;
+export default EditFriendForm;
